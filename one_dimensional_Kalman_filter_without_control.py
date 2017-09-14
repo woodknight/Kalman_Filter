@@ -15,13 +15,13 @@ w = 5 * np.random.randn(N) # sensor noise
 z = z + w
 
 def predict(x,p):
-    q = 1 # process noise
+    q = 1 # process noise covariance
     x = x
-    p = p + q
+    p = p + q # covariance of the state vector terms
     return x, p
 
 def update(x, p, z):
-    r = 10 # sensor noise
+    r = 10 # sensor noise covariance
     k = p / (p + r)
     x = x + k*(z - x)
     p = p - k * p
@@ -29,8 +29,9 @@ def update(x, p, z):
 
 x = np.zeros(N)
 x[0] = z[0]
+p = 10
 for i in range(1, N):
-    (x[i], p) = predict(x[i-1], 10)
+    (x[i], p) = predict(x[i-1], p)
     (x[i], p) = update(x[i], p, z[i])
     
 plt.plot(t, z, 'r', label = 'raw')

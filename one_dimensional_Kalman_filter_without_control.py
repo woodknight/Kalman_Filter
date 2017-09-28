@@ -15,7 +15,7 @@ w = 5 * np.random.randn(N) # sensor noise
 z = z + w
 
 def predict(x,p):
-    q = 1 # process noise covariance
+    q = 2 # process noise covariance
     x = x
     p = p + q # covariance of the state vector terms
     return x, p
